@@ -1,24 +1,40 @@
 # 🚗 KPIT Intelligent DTC Test Case Generator
 
-**An AI-powered desktop application** that automatically generates Robot Framework test cases for automotive Diagnostic Trouble Code (DTC) validation.
+An **AI-powered desktop application** that automatically generates **Robot Framework test cases** for **automotive Diagnostic Trouble Code (DTC) validation**.
 
-## 🌟 Key Features
+---
 
-- **AI-Powered Parsing**:
-  - Fine-tuned T5 model transforms implementation rules into test logic
-  - Extracts coding parameters and trigger conditions automatically
-  - Generates randomized test values (normal/error conditions)
+## 📑 Table of Contents
+1. [✨ Key Features](#-key-features)
+2. [🏗 Project Architecture](#-project-architecture)
+3. [⚙️ Requirements](#️-requirements)
+4. [🔧 Initial Setup](#-initial-setup)
+5. [🚀 Getting Started](#-getting-started)
+6. [📊 Excel File Format](#-excel-file-format)
+7. [🛠 Troubleshooting](#-troubleshooting)
+8. [📜 License](#-license)
 
-- **User-Friendly Interface**:
-  - Modern PyQt5 GUI with interactive tables
-  - Excel file import with validation
-  - One-click test case generation
+---
 
-- **Enterprise Ready**:
-  - User authentication via Supabase
-  - Admin approval workflow
-  - Password reset functionality
-  
+## ✨ Key Features
+
+**AI-Powered Parsing**
+- Fine-tuned **T5 model** transforms implementation rules into test logic
+- Automatically extracts **coding parameters** and **trigger conditions**
+- Generates **randomized test values** for normal/error conditions
+
+**User-Friendly Interface**
+- Modern **PyQt5 GUI** with interactive tables
+- **Excel file import** with validation
+- **One-click test case generation**
+
+**Enterprise Ready**
+- **User authentication** via Supabase
+- **Admin approval workflow**
+- **Password reset functionality**
+
+---
+
 ## 🏗 Project Architecture
 
 ```bash
@@ -70,22 +86,32 @@ kpit-intelligent-dtc/
 - Torch
 - Transformers (Hugging Face)
 
-## Install dependencies:
+**Install dependencies:**
 
 ```bash
 pip install -r requirements.txt
 ```
+---
+
 ## 🔧 Initial Setup
 
-### 1. Model Training (Mandatory First Step)
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/ZeinebGhrab/kpit-intelligent-dtc.git
+cd kpit-intelligent-dtc
+```
+
+### 2. Train the AI model (Mandatory first step)
 
 ```bash
 cd ai_model
 python train_model_readable.py 
 ```
-💡 Training requires GPU (4GB VRAM minimum) | Estimated time: ~2h on RTX 3060
+💡 Requires GPU (≥4GB VRAM)
+⏱ Estimated time: ~2h on RTX 3060
 
-### 2. Environment Configuration
+### 3. Configure Environment
 
 Create `.env` file with these variables:
 
@@ -102,13 +128,13 @@ GMAIL_APP_PASSWORD="generated-app-password"
 
 ## 🚀 Getting Started
 
-1. **Launch Application:**
+**Launch Application:**
 
 ```bash
 python run.py
 ```
 
-2. **Workflow:**
+**Workflow:**
 
 - Log in with approved credentials
 - Load DTC Excel file (see format below)
