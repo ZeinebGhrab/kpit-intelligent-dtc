@@ -139,7 +139,7 @@ Common Issues:
 
 - Validate column headers match exactly
 - Check for empty cells in required columns
-- 
+
 ## 📜 License
 Proprietary software © 2025 KPIT Technologies. All rights reserved.
 
