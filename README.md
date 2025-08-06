@@ -77,7 +77,7 @@ kpit-intelligent-dtc/
 │   ├── login_window.png           # [Auth] Login interface with Supabase integration
 │   ├── signup_window.png          # [Auth] User registration form with validation
 │   ├── principal_window.png       # [Core] Main DTC test generation interface
-│   └── admin_panel.png            # [Admin] User management dashboard (approval system)
+│   └── admin_panel.png            # [Admin] User management dashboard 
 └── README.md
 ```
 
