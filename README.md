@@ -39,16 +39,16 @@ kpit-intelligent-dtc/
 ├── frontend/                      # Main frontend application directory
 │   ├── main.py                    # Primary application entry point
 │   ├── window_manager.py          # Central window management system
-│   └── views/                     # Contains all application views/windows
-│       ├── principal_window.py     # Main DTC test case generation interface
-│       ├── login_window.py         # User authentication window
-│       └── signup_window.py        # User registration system
+│   ├── views/                     # Contains all application views/windows
+│   │    ├── principal_window.py     # Main DTC test case generation interface
+│   │    ├── login_window.py         # User authentication window
+│   │    └── signup_window.py        # User registration system
+│   │
+│   └──  assets/
+│        ├── kpit_logo.png # Logo displayed in the GUI # [UI Theme] Qt Stylesheet for application styling
+│        └── styles.qss
 │
-│ └──  assets/
-│    └── kpit_logo.png # Logo displayed in the GUI
-│    └── styles.qss
-│
-├── AI_Model/                       # AI model development directory
+├── ai_Model/                       # AI model development directory
 │   ├── train_model_readable.py     # Model training script
 │   └── training_dataset_readable.xlsx  # Training dataset
 │
@@ -70,26 +70,45 @@ kpit-intelligent-dtc/
 - Torch
 - Transformers (Hugging Face)
 
-Install dependencies:
+## Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
-## 🚀 Getting Started
+## 🔧 Initial Setup
 
-1. **Configuration:**
+### 1. Model Training (Mandatory First Step)
 
 ```bash
-cp .env.example .env
-# Edit with your Supabase credentials
+cd ai_Model
+python train_model_readable.py 
 ```
-2. **Launch Application:**
+💡 Training requires GPU (4GB VRAM minimum) | Estimated time: ~2h on RTX 3060
+
+### 2. Environment Configuration
+
+Create `.env` file with these variables:
+
+```ini
+# Supabase (get these from project settings)
+SUPABASE_URL="your-project-url"
+SUPABASE_KEY="your-anon-key"
+SUPABASE_SERVICE_KEY="your-service-key"
+
+# Gmail (enable App Passwords)
+GMAIL_USER="your-email@gmail.com"
+GMAIL_APP_PASSWORD="generated-app-password"
+```
+
+## 🚀 Getting Started
+
+1. **Launch Application:**
 
 ```bash
 python run.py
 ```
 
-3. **Workflow:**
+2. **Workflow:**
 
 - Log in with approved credentials
 - Load DTC Excel file (see format below)
