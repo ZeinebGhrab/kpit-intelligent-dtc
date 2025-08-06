@@ -1,0 +1,74 @@
+*** Settings ***
+Resource    ../../../../Keywords/ProjectKeywords/HiL/Climate/Climate_General.resource
+
+Metadata    TestDescription    Test DTCs {{dtc_code}}
+            ...    TC precondition
+            ...    TC Execution
+            ...    Set trigger conditions
+            ...    Check DTC active in Memory
+            ...    Remove trigger conditions
+            ...    Check DTC not active in Memory
+            ...    TC Clean Up
+Metadata    Author    {{tester_name}}
+Metadata    Status    Validation
+Metadata    LinkedRequirements
+Metadata    LinkedRequirements_CB
+Metadata    TicketIDs
+Metadata    TestLevels    HiL
+
+*** Test Cases ***
+Test_DTC{{ dtc_code }}_Pos
+    [Tags]    robot:recursive-continue-on-failure
+    [Setup]    Setup Testcase    ${TEST_NAME}
+    [Teardown]    TearDown Testcase
+
+    #-----------------------------------------------------------------------------------------
+    #        TC precondition
+    #-----------------------------------------------------------------------------------------
+    SET Pwf to PAD
+    Check Last Or Wait Signal Change    CAN_FD_IPB_13::0x3C::ST_CON_VEH    ${PAD}    ${HilDelayOfPwf}
+    Step_Diag_Logger_SetSendDiag_Enable_Trace_Climate
+    Power Supply Set Voltage    PS_Channel    ${12}
+    Clear All Dtc    ${ {{ ECU }} }
+
+    Wait time    ${Hildelay_ClearMemory}ms
+
+    Dtc Should Not Be In Memory    ${ {{  dtc_code }} }    ${ {{ ECU }} }
+    #-----------------------------------------------------------------------------------------
+    #                                        TC Execution
+    #-----------------------------------------------------------------------------------------
+    #         Set trigger conditions {{ dtc_code }}
+    #         Check DTC active in Memory after 2000ms (debounce time {{ Debounce }}ms)
+    #-----------------------------------------------------------------------------------------
+    {% for cond in trigger_conditions %}
+    Set trigger conditions    {{ Bus }}::{{ cond.variable }}    ${ {{ cond.error_value }} }
+    
+    Wait Time    ${HilSystemDelay500ms}
+
+    Dtc Should Not Be In Memory    ${ {{ dtc_code }} }    ${ {{ ECU }} }
+
+    Wait Time    ${HilSystemDelay1500ms}
+
+    Dtc Should Be In Memory    ${ {{ dtc_code }} }    ${ {{ ECU }} }
+    Dtc Active In Memory    ${ {{ dtc_code }} }    ${ {{ ECU }} }
+    #-----------------------------------------------------------------------------------------
+    #         Remove trigger conditions
+    #         After 2000ms Check DTC not active in Memory
+    #-----------------------------------------------------------------------------------------
+    
+    Remove trigger conditions    {{ Bus }}_::{{ cond.variable }}    ${ {{ cond.normal_value if cond.normal_value }} }
+  
+    Wait Time    ${HilSystemDelay500ms}
+
+    Dtc Should Be In Memory    ${ {{ dtc_code }} }    ${ {{ ECU }} }
+    Dtc Active In Memory    ${ {{ dtc_code }} }    ${ {{ ECU }} }
+
+    Wait Time    ${HilSystemDelay1500ms}
+
+    Dtc Not Active In Memory    ${ {{ dtc_code }} }    ${ {{ ECU }} }
+    Dtc Should Be In Memory    ${ {{ dtc_code }} }    ${ {{ ECU }} }
+    
+    #-----------------------------------------------------------------------------------------
+    #        Clean Up
+    #-----------------------------------------------------------------------------------------
+    {% endfor %}
