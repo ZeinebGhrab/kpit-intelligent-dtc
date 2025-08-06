@@ -125,7 +125,7 @@ SUPABASE_SERVICE_KEY="your-service-key"
 GMAIL_USER="your-email@gmail.com"
 GMAIL_APP_PASSWORD="generated-app-password"
 ```
-
+---
 ## 🚀 Getting Started
 
 **Launch Application:**
@@ -140,6 +140,8 @@ python run.py
 - Load DTC Excel file (see format below)
 - Enter DTC ID and generate test case
 - Export Robot Framework file
+  
+---
 
 ## 📊 Excel File Format
 Required columns:
@@ -147,6 +149,8 @@ Required columns:
 | DTC      | ECU  | BUS | Debounce time (ms) | Implementation                                                                                 |
 |----------|------|-----|--------------------|------------------------------------------------------------------------------------------------|
 | 0x024001 | ECU1 | LIN | 1000               | CURRENT_MONITOR_CAN_ENABLED == TRUE<br>VOLTAGE_SENSOR_CAN_ACTIVE == TRUE<br>Set error if: Voltage_Level > 15V [0x1B2] |
+
+---
 
 ## 🛠 Troubleshooting
 Common Issues:
@@ -165,7 +169,8 @@ Common Issues:
 
 - Validate column headers match exactly
 - Check for empty cells in required columns
-
+  
+---
 ## 📜 License
 Proprietary software © 2025 KPIT Technologies. All rights reserved.
 
