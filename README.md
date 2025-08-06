@@ -48,7 +48,7 @@ kpit-intelligent-dtc/
 │        ├── kpit_logo.png # Logo displayed in the GUI # [UI Theme] Qt Stylesheet for application styling
 │        └── styles.qss
 │
-├── ai_Model/                       # AI model development directory
+├── ai_model/                       # AI model development directory
 │   ├── train_model_readable.py     # Model training script
 │   └── training_dataset_readable.xlsx  # Training dataset
 │
@@ -80,7 +80,7 @@ pip install -r requirements.txt
 ### 1. Model Training (Mandatory First Step)
 
 ```bash
-cd ai_Model
+cd ai_model
 python train_model_readable.py 
 ```
 💡 Training requires GPU (4GB VRAM minimum) | Estimated time: ~2h on RTX 3060
