@@ -54,42 +54,93 @@ class ResetPasswordDialog(QDialog):
         title_label.setAlignment(Qt.AlignCenter)
 
         # Message
-        info_label = QLabel("Enter your email to receive a password reset link:")
+        info_label = QLabel("Enter your email to receive a password reset link :")
         info_label.setWordWrap(True)
-
-        # Important note
 
         # Email field
         self.email_input = QLineEdit()
         self.email_input.setPlaceholderText("your.email@kpit.com")
 
-        # Buttons
+       # Buttons
         buttons_layout = QHBoxLayout()
         cancel_btn = QPushButton("Cancel")
         send_btn = QPushButton("Send Link")
-        send_btn.setObjectName("loginBtn")
+
+        cancel_btn.setObjectName("cancelBtn")
+        send_btn.setObjectName("sendBtn")
 
         buttons_layout.addWidget(cancel_btn)
         buttons_layout.addWidget(send_btn)
 
-        # Status label (hidden by default)
-        self.status_label = QLabel()
-        self.status_label.setWordWrap(True)
-        self.status_label.hide()
+        send_btn.setFixedSize(150, 40)
+        cancel_btn.setFixedSize(150, 40)
+        
+        self.setStyleSheet("""
+    QDialog {
+        background-color: #2d2d2d;
+        color: #e0e0e0;
+    }
+    QLabel {
+        color: #e0e0e0;
+    }
+    QLineEdit {
+        background-color: #3d3d3d;
+        color: white;
+        border: 1px solid #43a047;
+        border-radius: 4px;
+        padding: 8px;
+    }
+    QPushButton#sendBtn {
+        background-color: #43a047;
+        color: white;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        min-width: 150px;
+        min-height: 40px;
+        font-weight: bold;
+        margin-top:20px;
+    }
+    QPushButton#sendBtn:hover {
+        background-color: #2e7d32;
+    }
+    QPushButton#cancelBtn {
+        background-color: #FF0000;
+        color: white;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        min-width: 150px;
+        min-height: 40px;
+        font-weight: bold;
+        margin-top:20px;
+    }
+    QPushButton#cancelBtn:hover {
+        background-color: #d32f2f;
+    }
+""")
+
 
         # Add to layout
         layout.addWidget(title_label)
         layout.addWidget(info_label)
         layout.addWidget(self.email_input)
         layout.addLayout(buttons_layout)
+       
+        self.status_label = QLabel()
+        self.status_label.setWordWrap(True)
+        self.status_label.hide()  
         layout.addWidget(self.status_label)
         layout.addStretch()
 
         self.setLayout(layout)
 
         # Connections
-        cancel_btn.clicked.connect(self.close)
+        cancel_btn.clicked.connect(self.reject)
         send_btn.clicked.connect(self.send_reset_email)
+
+   
+   #------- Function to reset password -----------
 
     def send_reset_email(self):
         email = self.email_input.text().strip()
@@ -161,7 +212,7 @@ class LoginWindow(QMainWindow):
         self.ignore_close_event = False
         self.supabase = None
 
-        # Initialiser Supabase avec gestion d'erreur améliorée
+        # Initialize Supabase with enhanced error handling
         self.initialize_supabase()
 
         # Widget central
@@ -230,25 +281,18 @@ class LoginWindow(QMainWindow):
         self.forgot_label = QLabel(
             "<a href='#' style='color:#43a047;font-weight: bold;margin-bottom: 6px;'>Forgot password ?</a>"
         )
-        self.forgot_label.linkActivated.connect(self.show_reset_dialog)
-
+        
         # Green style with hover effect
         self.forgot_label.setStyleSheet("""
             QLabel:hover {
             color: #90EE90;  
             }
             """)
-
-        # Options
+        
+         # Options
         options_layout = QVBoxLayout()
-        self.remember_check = QCheckBox("Keep me logged in")
-        self.remember_check.setStyleSheet("""
-            QCheckBox {
-            font-weight: bold;  
-            }
-            """)
         options_layout.addWidget(self.forgot_label)
-        options_layout.addWidget(self.remember_check)
+        
 
         # Login Button
         login_btn = QPushButton("Login")
@@ -325,8 +369,8 @@ class LoginWindow(QMainWindow):
             self.signup_window.show()
 
     def show_reset_dialog(self):
-        dialog = ResetPasswordDialog(self)
-        dialog.exec()
+        self.reset_dialog = ResetPasswordDialog(self)
+        self.reset_dialog.exec_()
 
     def attempt_login(self):
         email = self.email_input.text().strip()
@@ -356,9 +400,10 @@ class LoginWindow(QMainWindow):
                 "email": email,
                 "password": password
             })
+            
+            print(f"User ID after auth: {response.user.id}")
 
-            user_profile_response = self.supabase.table('user_profiles').select('*').eq('id',
-                                                                                        response.user.id).single().execute()
+            user_profile_response = self.supabase.table('user_profiles') .select('*') .eq('email', email) .maybe_single().execute()
 
             if user_profile_response.data:
                 user_profile = user_profile_response.data
@@ -471,6 +516,7 @@ class LoginWindow(QMainWindow):
         # Add two buttons: Yes and No
         yes_button = msg_box.addButton("Yes", QMessageBox.AcceptRole)
         no_button = msg_box.addButton("No", QMessageBox.RejectRole)
+        
 
         # Custom styles on each button
         yes_button.setStyleSheet("""

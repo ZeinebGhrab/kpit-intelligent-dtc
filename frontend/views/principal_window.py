@@ -68,12 +68,12 @@ class PrincipalWindow(QMainWindow):
 
         main_layout.addWidget(top_frame)
 
-        # --- Ligne DTC ID + Tester Name + Run Button --- #
+        # --- Ligne DTC ID + Tester Name + Increment + Run Button --- #
         test_case_frame = QFrame()
         test_case_layout = QHBoxLayout(test_case_frame)
 
         self.test_case_input = QLineEdit()
-        self.test_case_input.setPlaceholderText("Enter the test case ID...")
+        self.test_case_input.setPlaceholderText("Enter the DTC ID...")
         self.test_case_input.setMinimumHeight(40)
         self.test_case_input.setStyleSheet("padding: 8px;")
 
@@ -82,6 +82,11 @@ class PrincipalWindow(QMainWindow):
         self.tester_name_input.setMinimumHeight(40)
         self.tester_name_input.setStyleSheet("padding: 8px;")
 
+        self.increment_input = QLineEdit()
+        self.increment_input.setPlaceholderText("Enter increment...")
+        self.increment_input.setMinimumHeight(40)
+        self.increment_input.setStyleSheet("padding: 8px;")
+
         # Run Button 
         self.run_btn = QPushButton("Run")
         self.run_btn.setObjectName("loginBtn")
@@ -89,11 +94,14 @@ class PrincipalWindow(QMainWindow):
         self.run_btn.setFixedWidth(100)
         self.run_btn.setMinimumHeight(40)
 
-        test_case_layout.addWidget(QLabel("Test Case ID:"))
+        test_case_layout.addWidget(QLabel("DTC ID:"))
         test_case_layout.addWidget(self.test_case_input)
         test_case_layout.addSpacing(20)
         test_case_layout.addWidget(QLabel("Tester Name:"))
         test_case_layout.addWidget(self.tester_name_input)
+        test_case_layout.addSpacing(20)
+        test_case_layout.addWidget(QLabel("Increment:"))
+        test_case_layout.addWidget(self.increment_input)
         test_case_layout.addSpacing(20)
         test_case_layout.addWidget(self.run_btn)  # Run button to the right of the Tester Name field
 
@@ -296,16 +304,17 @@ class PrincipalWindow(QMainWindow):
                 val = None
             op = cond.get("operator", "<")
 
+            increment_text = self.increment_input.text().strip()
             if val is not None:
                 if op == ">":
-                    cond["error_value"] = round(random.uniform(val + 1, val * 1.5), 1)
-                    cond["normal_value"] = round(random.uniform(val * 0.5, val - 1), 1)
+                    cond["error_value"] = val + int(increment_text) if increment_text else round(random.uniform(val + 1, val * 1.5), 1)
+                    cond["normal_value"] = val - int(increment_text) if increment_text else round(random.uniform(val * 0.5, val - 1), 1)
                 elif op == "<":
-                    cond["error_value"] = round(random.uniform(val * 0.5, val - 1), 1)
-                    cond["normal_value"] = round(random.uniform(val + 1, val * 1.5), 1)
+                    cond["error_value"] = val - int(increment_text) if increment_text else round(random.uniform(val * 0.5, val - 1), 1)
+                    cond["normal_value"] = val + int(increment_text) if increment_text else round(random.uniform(val + 1, val * 1.5), 1)
                 else:
                     cond["error_value"] = val
-                    cond["normal_value"] = round(random.uniform(val + 1, val * 1.5), 1)
+                    cond["normal_value"] = val + round(random.uniform(val + 1, val * 1.5), 1)
 
         tester_name = self.tester_name_input.text().strip() or "Unknown Tester"
         data = {

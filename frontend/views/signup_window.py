@@ -233,12 +233,7 @@ class SignupWindow(QMainWindow):
         terms_layout.addWidget(terms_label)
         terms_layout.addStretch()
 
-        self.newsletter_check = QCheckBox("I wish to receive the KPIT newsletter")
-        self.newsletter_check.setStyleSheet("""
-            QCheckBox {
-            font-weight: bold;  
-            }
-            """)
+     
 
         self.signup_btn = QPushButton("Sign in")
         self.signup_btn.setObjectName("loginBtn")
@@ -263,7 +258,6 @@ class SignupWindow(QMainWindow):
             right_layout.addWidget(field)
 
         right_layout.addWidget(terms_container)
-        right_layout.addWidget(self.newsletter_check)
         right_layout.addSpacing(20)
         right_layout.addWidget(self.signup_btn)
         right_layout.addWidget(login_label)
@@ -376,18 +370,14 @@ class SignupWindow(QMainWindow):
                 "email": email,
                 "password": password,
                 "options": {
-                    "email_redirect_to": None,
                     "data": {
                         "prenom": firstname,
                         "nom": lastname,
-                        "newsletter_abonne": self.newsletter_check.isChecked(),
-                        "status": "pending_approval"
+                        "status": "pending_approval",
                     }
                 }
             })
-
-            print("Supabase Response:", response)
-
+            
             if response.user:
                 # Create a user profile in the custom table
                 self.create_user_profile(response.user.id, email, firstname, lastname)
@@ -457,7 +447,6 @@ class SignupWindow(QMainWindow):
                 'prenom': firstname,
                 'nom': lastname,
                 'status': 'pending_approval',
-                'newsletter_abonne': self.newsletter_check.isChecked()
             }).execute()
             print("User profile created in user_profiles")
         except Exception as e:

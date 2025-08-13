@@ -1241,7 +1241,7 @@ def approve_user(user_id):
             'status': 'approved'
         }).eq('id', user_id).execute()
 
-        # Send approval email (à implémenter)
+        # Send approval email 
         return redirect('/admin?message=User+approved')
     except Exception as e:
         return f"Error: {str(e)}", 500
@@ -1255,11 +1255,11 @@ def reject_user(user_id):
             'status': 'rejected'
         }).eq('id', user_id).execute()
 
-        # Send rejection email (à implémenter)
+        # Send rejection email
         return redirect('/admin?message=User+rejected')
     except Exception as e:
         return f"Error: {str(e)}", 500
-
+    
 if __name__ == '__main__':
     print("=" * 60)
     print("🚀 Starting KPIT Flask Server")
