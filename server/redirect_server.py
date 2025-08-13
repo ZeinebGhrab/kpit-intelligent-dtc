@@ -367,7 +367,7 @@ RESET_FORM_HTML = '''
         {% endif %}
 
         <div class="footer animate__animated animate__fadeIn animate__delay-4s">
-            <p>© 2024 KPIT Technologies. All rights reserved.</p>
+            <p>© 2025 KPIT Technologies. All rights reserved.</p>
         </div>
     </div>
 
