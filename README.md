@@ -74,11 +74,15 @@ kpit-intelligent-dtc/
 ├── requirements.txt # Python dependencies
 ├── run.py # Startup script launching Flask server and Qt app
 │
-├── app_snapshots/                  # High-fidelity application screenshots
+├── app_snapshots/                 # High-fidelity application screenshots
 │   ├── login_window.png           # [Auth] Login interface with Supabase integration
+│   ├── password_reset_query.png   # [Auth] Window to request a password reset
 │   ├── signup_window.png          # [Auth] User registration form with validation
 │   ├── principal_window.png       # [Core] Main DTC test generation interface
-│   └── admin_panel.png            # [Admin] User management dashboard 
+│   ├── admin_panel.png            # [Admin] User management dashboard
+│   ├── reset_password_interface.png  # [Auth] Interface to reset password after receiving query email
+│   └── notification_email_admin.png  # [Email] Admin notification email for user actions
+│ 
 └── README.md
 ```
 
