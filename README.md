@@ -155,7 +155,7 @@ Required columns:
 
 | DTC      | ECU  | BUS | Debounce time (ms) | Implementation                                                                                 |
 |----------|------|-----|--------------------|------------------------------------------------------------------------------------------------|
-| 0x024001 | ECU1 | LIN | 1000               | CURRENT_MONITOR_CAN_ENABLED == TRUE<br>VOLTAGE_SENSOR_CAN_ACTIVE == TRUE<br>Set error if: Voltage_Level > 15V [0x1B2] |
+| 0x024001 | ECU1 | LIN | 1000               | VOLTAGE_SENSOR_CAN_ACTIVE == TRUE<br>Set error if: Voltage_Level > 15V [0x1B2] |
 
 ---
 
