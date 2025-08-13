@@ -11,8 +11,9 @@ An **AI-powered desktop application** that automatically generates **Robot Frame
 4. [🔧 Initial Setup](#-initial-setup)
 5. [🚀 Getting Started](#-getting-started)
 6. [📊 Excel File Format](#-excel-file-format)
-7. [🛠 Troubleshooting](#-troubleshooting)
-8. [📜 License](#-license)
+7. [🛠 User Manual](#-user-manual)
+8. [🛠 Troubleshooting](#-troubleshooting)
+9. [📜 License](#-license)
 
 ---
 
@@ -156,6 +157,28 @@ Required columns:
 |----------|------|-----|--------------------|------------------------------------------------------------------------------------------------|
 | 0x024001 | ECU1 | LIN | 1000               | CURRENT_MONITOR_CAN_ENABLED == TRUE<br>VOLTAGE_SENSOR_CAN_ACTIVE == TRUE<br>Set error if: Voltage_Level > 15V [0x1B2] |
 
+---
+
+## 📖 User Manual
+1. **Connect**
+   - If you don’t have an account, sign up first.
+   - After the admin approves your account, you can log in.
+   - Use the "Forgot Password" option to reset your password if needed.
+
+2. **Access the Main Application**
+   - Launch the application after logging in.
+   - Browse and load your Excel file containing DTC information.
+
+3. **DTC Input and Test Configuration**
+   - Enter a valid DTC ID.
+   - Provide a tester name and set the increment value as desired.
+
+4. **Generate Test Case**
+   - Click **Run** to generate the `.robot` test case file.
+
+5. **Output**
+   - View the generated test case within the application or download it for use.
+     
 ---
 
 ## 🛠 Troubleshooting
