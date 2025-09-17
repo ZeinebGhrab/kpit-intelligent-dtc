@@ -81,6 +81,7 @@ kpit-intelligent-dtc/
 │   ├── principal_window.png       # [Core] Main DTC test generation interface
 │   ├── admin_panel.png            # [Admin] User management dashboard
 │   ├── reset_password_interface.png  # [Auth] Interface to reset password after receiving query email
+│   ├── password_reset success.png  # [Auth] Interface to confirm password change
 │   └── notification_email_admin.png  # [Email] Admin notification email for user actions
 │ 
 └── README.md
